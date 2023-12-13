@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+
+    <color name="primaryColor">#3F51B5</color>
+    <color name="accentColor">#FF4081</color>
+
+
+    <color name="skyblue">#B3DCF9</color>
+    <color name="blue">#4A008F</color>
+    <color name="skyblue2">#43B0A8</color>
+    <color name="skyblue3">#7DFFD7</color>
+    <color name="darkgreen">#0DB815</color>
+    <color name="headerred">#cc0000</color>
+    <color name="color7">#81c31f</color>
+    <color name="red_background_color">#DCF01956</color>
+    <color name="default_background_color">#FFFFFF</color>
+
+</resources>

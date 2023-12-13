@@ -1,0 +1,78 @@
+package com.example.ott.ui.guideTourActivity
+
+import GuideTourPagerAdapter
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
+import com.example.ott.R
+import com.example.ott.ui.authenticationModule.LoginActivity
+import com.example.ott.util.fullScreen
+import com.example.ott.databinding.ActivityGuideTourBinding
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+
+class GuideTourActivity : AppCompatActivity() {
+    lateinit var binding: ActivityGuideTourBinding
+    private var currentPage = 0
+
+    private val layouts = arrayOf(
+        R.layout.welcome1,
+        R.layout.welcome2,
+        R.layout.welcome3
+    )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding=ActivityGuideTourBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+       fullScreen()
+
+
+        val adapter = GuideTourPagerAdapter(this, layouts)
+        binding.viewpager.adapter = adapter
+        binding.springDotsIndicator.setViewPager(binding.viewpager)
+
+
+        binding.tvNext.setOnClickListener {
+            if (currentPage < layouts.size - 1) {
+
+                currentPage++
+                binding.viewpager.currentItem = currentPage
+            } else {
+
+                startActivity(Intent(this@GuideTourActivity, LoginActivity::class.java))
+                finish()
+            }
+        }
+        binding.tvSkip.setOnClickListener {
+
+            startActivity(Intent(this@GuideTourActivity, LoginActivity::class.java))
+            finish()
+        }
+
+        binding.viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+            override fun onPageSelected(position: Int) {
+                currentPage = position
+                if (position == layouts.size - 1) {
+
+                    binding.tvNext.visibility = View.VISIBLE
+                } else {
+
+                    binding.tvNext.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {}
+        })
+
+    }
+
+}
+
+
+
+
