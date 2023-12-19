@@ -8,6 +8,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <RelativeLayout
+        android:id="@+id/rl_Account"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:translationZ="50sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <include
+            android:id="@+id/buttomLayout"
+            layout="@layout/buttom_layout" />
+    </RelativeLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

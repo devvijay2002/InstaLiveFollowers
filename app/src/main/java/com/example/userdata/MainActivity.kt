@@ -27,23 +27,32 @@ class MainActivity : AppCompatActivity(), UserAdapter.OnItemClickListener {
     private lateinit var m1ViewModel: M1ViewModel
     private lateinit var m1ViewModel2: M1ViewModel2
     private lateinit var userAdapter: UserAdapter
+    private  lateinit var accountAdapter : AccountAdapter
 
     lateinit var context: Context
     lateinit var myPreferences: MyPreferences
 
-
+   private lateinit var dataList:List<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+
+
+
         // Initialize myPreferences here
         context = this
         myPreferences = MyPreferences(context)
 
         val instaId = myPreferences.getString("InstaId", "")
+
         binding.InstaId.text = "Hi, "+ instaId
+
+        dataList = listOf(myPreferences.getString("InstaId", ""))
 
         binding.userFollowers.visibility = View.VISIBLE
 
@@ -64,11 +73,17 @@ class MainActivity : AppCompatActivity(), UserAdapter.OnItemClickListener {
 
         binding.refresh.setOnClickListener {
            binding.animationRefresh.visibility = View.VISIBLE
-binding.animationRefresh.playAnimation()
-    hitUpdatedUserData()
+           binding.animationRefresh.playAnimation()
+             hitUpdatedUserData()
 
+          }
+        binding.cardView2.setOnClickListener {
+      if (binding.rlAccount.getVisibility() === View.VISIBLE){
+          BelowDown()
+      }else{
+          BelowUp()
+      }
         }
-
         binding.cardView2.visibility = View.GONE
 
 
@@ -80,8 +95,8 @@ binding.animationRefresh.playAnimation()
         binding.userFollowers.visibility = View.VISIBLE
 
         hitUserData1()
-binding.rlMenu.setOnClickListener {
-    if (binding.rlMenu.getVisibility() === View.VISIBLE) {
+      binding.rlMenu.setOnClickListener {
+      if (binding.rlMenu.getVisibility() === View.VISIBLE) {
         rightOut()
     } else {
         rightIn()
@@ -135,6 +150,25 @@ binding.rlMenu.setOnClickListener {
         binding.rlMenu.setVisibility(View.VISIBLE)
         binding.rlMenu.setAnimation(startAnimation)
         binding.rlMenu.setClickable(true)
+    }
+
+    fun BelowUp() {
+
+        val startAnimation = AnimationUtils.loadAnimation(
+            applicationContext, R.anim.below_up
+        )
+        binding.rlAccount.setAnimation(startAnimation)
+        binding.rlAccount.setVisibility(View.VISIBLE)
+        binding.rlAccount.setClickable(false)
+    }
+
+    fun BelowDown() {
+        val startAnimation = AnimationUtils.loadAnimation(
+            applicationContext, R.anim.below_down
+        )
+        binding.rlAccount.setVisibility(View.GONE)
+        binding.rlAccount.setAnimation(startAnimation)
+        binding.rlAccount.setClickable(true)
     }
 private fun hitUserData1(){
 
@@ -228,7 +262,7 @@ private fun hitUserData1(){
     private fun hitUpdatedUserData() {
         val instaId = myPreferences.getString("InstaId", "")
 
-        m1ViewModel2.hitUpdatedUserData("UserId/$instaId")
+        m1ViewModel2.hitUpdatedUserData("/Assistant/UserId/$instaId")
     }
 
     private fun hitPostUserData(username: String, followers: Int) {
@@ -250,6 +284,12 @@ private fun hitUserData1(){
         userAdapter = UserAdapter(emptyList(), this)
         binding.recyclerView.adapter = userAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+
+        ///
+
+        accountAdapter = AccountAdapter(this, dataList)
+        binding.buttomLayout.recyclerViewAccount.adapter=accountAdapter
+        binding.buttomLayout.recyclerViewAccount.layoutManager=LinearLayoutManager(this)
     }
 
     override fun onItemClick(userId: String) {

@@ -16,14 +16,7 @@ import java.time.format.DateTimeFormatter
 
 class  UserAdapter(private var userList: List<UpdatedUserResp.Result>, private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
-    fun saveDataToPreferences(context: Context) {
-        val preferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        val gson = Gson()
-        val userPreferences = M1ViewModel2Preferences(userList)
-        val json = gson.toJson(userPreferences)
 
-        preferences.edit().putString("userList", json).apply()
-    }
 
     interface OnItemClickListener {
         fun onItemClick(userId: String)

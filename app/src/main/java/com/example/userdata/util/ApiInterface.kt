@@ -31,7 +31,7 @@ interface ApiInterface {
         @Url url: String
     ) :Observable<UpdatedUserResp>
 
-    @POST("api/Assistant")
+    @POST("/Assistant")
     fun PostUserData(
         @Query ("userId") userId:String,
         @Query ("followerCount") followerCount:Int,
@@ -42,7 +42,7 @@ interface ApiInterface {
     @POST("api/User")
     fun PostSignUPData(@Body requestBody: Map<String, String>): Observable<SignUpResp>
 
-    @GET("api/Login")
+    @GET("/Login")
     fun getLoginData(
         @Query ("username") username:String,
         @Query ("password") password:String,
